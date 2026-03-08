@@ -1,11 +1,9 @@
 <script setup>
 import { ref } from 'vue'
 import AnimeCard from '@/components/AnimeCard.vue'
+import { useAinmeRoulette } from '@/composables/useAnimeRoulette.js'
 
-const loading = ref(false)
-const spin = () => {
-  loading.value = !loading.value
-}
+const { loading, error, anime, spin } = useAinmeRoulette()
 </script>
 
 <template>
@@ -43,7 +41,11 @@ const spin = () => {
           </div>
         </selection>
 
-        <AnimeCard :loading="loading" />
+        <AnimeCard
+          :loading="loading"
+          :error="error"
+          :anime="anime"
+        />
       </div>
     </div>
   </main>
