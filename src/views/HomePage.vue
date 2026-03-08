@@ -1,10 +1,5 @@
-<script setup>
-import { ref } from 'vue'
-const title = ref('Hello There ✋')
-</script>
+<script setup></script>
 
 <template>
-  <main class="flex flex-1 items-center justify-center">
-    <h1 class="text-6xl font-thin text-slate-800">{{ title }}</h1>
-  </main>
+  <main class="flex flex-1 items-center justify-center">RNG</main>
 </template>
