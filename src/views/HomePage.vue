@@ -1,9 +1,21 @@
 <script setup>
 import { computed } from 'vue'
 import AnimeCard from '@/components/AnimeCard.vue'
-import { useAinmeRoulette } from '@/composables/useAnimeRoulette.js'
+import { useAinmeRoulette } from '@/composables/useAnimeRoulette'
+import WatchList from '@/components/WatchList.vue'
 
-const { loading, error, anime, spin, cooldownLeft } = useAinmeRoulette()
+const {
+  anime,
+  loading,
+  error,
+  spin,
+  cooldownLeft,
+  addToWatchlist,
+  watchlist,
+  isInWatchlist,
+  removeFromWatchlist,
+} = useAnimeRoulette()
+
 const spinDisabled = computed(() => loading.value || cooldownLeft.value > 0)
 const spinLabel = computed(() => {
   if (loading.value) {
@@ -46,7 +58,7 @@ const spinLabel = computed(() => {
                 class="rounded-full border border-purple-600 bg-slate-800/60 px-6 py-3 text-base font-black tracking-wide text-slate-300 hover:bg-pink-600 disabled:cursor-not-allowed disabled:opacity-60"
                 @click="spin"
               >
-                RNJesus Give Me An Anime!
+                {{ spinLabel }}
               </button>
             </div>
             <p
@@ -62,6 +74,8 @@ const spinLabel = computed(() => {
           :loading="loading"
           :error="error"
           :anime="anime"
+          :in-watchlist="Boolean(anime && isInWatchlist(anime.mal_id))"
+          @add="addToWatchlist"
         />
       </div>
     </div>
