@@ -38,7 +38,7 @@ const spin = () => console.log('Hello')
           </div>
         </selection>
 
-        <AnimeCard loading />
+        <AnimeCard error="Network error" />
       </div>
     </div>
   </main>
