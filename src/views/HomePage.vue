@@ -1,9 +1,19 @@
 <script setup>
-import { ref } from 'vue'
+import { computed } from 'vue'
 import AnimeCard from '@/components/AnimeCard.vue'
 import { useAinmeRoulette } from '@/composables/useAnimeRoulette.js'
 
-const { loading, error, anime, spin } = useAinmeRoulette()
+const { loading, error, anime, spin, cooldownLeft } = useAinmeRoulette()
+const spinDisabled = computed(() => loading.value || cooldownLeft.value > 0)
+const spinLabel = computed(() => {
+  if (loading.value) {
+    return 'Shuffling...'
+  }
+  if (cooldownLeft.value > 0) {
+    return `Cooldown ${cooldownLeft.value}s`
+  }
+  return 'Give RNJesus a Spin!'
+})
 </script>
 
 <template>
@@ -32,12 +42,19 @@ const { loading, error, anime, spin } = useAinmeRoulette()
               </div>
               <button
                 type="button"
-                class="rounded-full border border-purple-600 bg-slate-800/60 px-6 py-3 text-base font-black tracking-wide text-slate-300 hover:bg-pink-600"
+                :disabled="spinDisabled"
+                class="rounded-full border border-purple-600 bg-slate-800/60 px-6 py-3 text-base font-black tracking-wide text-slate-300 hover:bg-pink-600 disabled:cursor-not-allowed disabled:opacity-60"
                 @click="spin"
               >
                 RNJesus Give Me An Anime!
               </button>
             </div>
+            <p
+              v-if="cooldownLeft > 0"
+              class="mt-4 rounded-xl border border-pink-800 bg-pink-200/40 px-3 py-2 font-semibold text-slate-400"
+            >
+              Rate limit reached. Wait {{ cooldownLeft }}s.
+            </p>
           </div>
         </selection>
 
