@@ -48,6 +48,11 @@ const props = defineProps({
       <h3 class="text-lg font-semibold">Failed to Load Anime</h3>
       <p class="mt-2 text-sm text-slate-400/90">{{ error }}</p>
     </div>
-    <div v-else>Done!</div>
+    <div
+      v-else
+      class="test-pink-400 rounded-2xl border border-slate-700/60 bg-slate-800/40 p-6 text-center"
+    >
+      SPIN TO WIN!...a new anime recommendation...
+    </div>
   </section>
 </template>

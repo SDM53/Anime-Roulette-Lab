@@ -1,6 +1,11 @@
 <script setup>
+import { ref } from 'vue'
 import AnimeCard from '@/components/AnimeCard.vue'
-const spin = () => console.log('Hello')
+
+const loading = ref(false)
+const spin = () => {
+  loading.value = !loading.value
+}
 </script>
 
 <template>
@@ -38,7 +43,7 @@ const spin = () => console.log('Hello')
           </div>
         </selection>
 
-        <AnimeCard error="Network error" />
+        <AnimeCard :loading="loading" />
       </div>
     </div>
   </main>
