@@ -24,10 +24,10 @@ const emit = defineEmits(['add'])
 const synopsisExpanded = ref(false)
 const animeImage = computed(() => {
   return (
-    props.anime?.image?.jpg?.large_image_url ||
-    props.anime?.image?.jpg?.image_url ||
-    props.anime?.image?.webp?.large_image_url ||
-    props.anime?.image?.webp?.image_url ||
+    props.anime?.images?.jpg?.large_image_url ||
+    props.anime?.images?.jpg?.image_url ||
+    props.anime?.images?.webp?.large_image_url ||
+    props.anime?.images?.webp?.image_url ||
     ''
   )
 })
@@ -87,12 +87,12 @@ watch(
           v-if="animeImage"
           :src="animeImage"
           :alt="anime.title"
-          class="bg-slae-900/50 h-88 w-full object-contain"
+          class="h-88 w-full bg-slate-900/50 object-contain"
           loading="lazy"
         />
         <div
           v-else
-          class="flex h-88 items-center justify-center bg-slate-900/50 text-slate-400"
+          class="flex h-80 items-center justify-center bg-slate-900 text-slate-400"
         >
           No Image Available
         </div>

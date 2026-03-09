@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import AnimeCard from '@/components/AnimeCard.vue'
-import { useAinmeRoulette } from '@/composables/useAnimeRoulette'
+import { useAnimeRoulette } from '@/composables/useAnimeRoulette.js'
 import WatchList from '@/components/WatchList.vue'
 
 const {
@@ -68,14 +68,17 @@ const spinLabel = computed(() => {
               Rate limit reached. Wait {{ cooldownLeft }}s.
             </p>
           </div>
+          <AnimeCard
+            :loading="loading"
+            :error="error"
+            :anime="anime"
+            :in-watchlist="Boolean(anime && isInWatchlist(anime.mal_id))"
+            @add="addToWatchlist"
+          />
         </selection>
-
-        <AnimeCard
-          :loading="loading"
-          :error="error"
-          :anime="anime"
-          :in-watchlist="Boolean(anime && isInWatchlist(anime.mal_id))"
-          @add="addToWatchlist"
+        <WatchList
+          :items="watchlist"
+          @remove="removeFromWatchlist"
         />
       </div>
     </div>
